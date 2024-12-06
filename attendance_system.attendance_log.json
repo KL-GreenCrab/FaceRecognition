@@ -1,0 +1,33 @@
+[{
+  "_id": {
+    "$oid": "67526b902592e0fdfbc636b8"
+  },
+  "Date": "2024-12-06",
+  "ID": "3",
+  "Name": "Nhism",
+  "Time In": "10:12:16",
+  "Time Out": "10:16:30",
+  "Total Hours": 0.07
+},
+{
+  "_id": {
+    "$oid": "67527dda2592e0fdfbc636bc"
+  },
+  "Date": "2024-12-06",
+  "ID": "6",
+  "Name": "Dev Nguyễn",
+  "Time In": "11:30:18",
+  "Time Out": "11:59:05",
+  "Total Hours": 0.48
+},
+{
+  "_id": {
+    "$oid": "675286672592e0fdfbc636bf"
+  },
+  "ID": "1",
+  "Date": "2024-12-06",
+  "Name": "Tuấn Tú",
+  "Time In": "12:06:47",
+  "Time Out": "13:21:21",
+  "Total Hours": 1.24
+}]

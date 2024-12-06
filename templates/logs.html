@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log chấm công</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <h2>Log chấm công</h2>
+    <div class="button-container">
+      <a href="/">Trở về trang chủ</a>
+    </div>
+    <table>
+      <caption>
+        Danh sách log chấm công
+      </caption>
+      <tr>
+        <th>STT</th>
+        <th>ID</th>
+        <th>Tên</th>
+        <th>Ngày</th>
+        <th>Giờ vào</th>
+        <th>Giờ ra</th>
+        <th>Tổng giờ</th>
+      </tr>
+      {% for log in logs %}
+      <tr>
+        <!-- Hàng có liên kết đến trang chi tiết -->
+        <td>{{ loop.index }}</td>
+        <td>
+          <a
+            href="{{ url_for('employee_detail', face_id=log['ID']) }}"
+            style="background: none, color: black, font-weight: normal"
+          >
+            {{ log['ID'] }}
+          </a>
+        </td>
+        <td>{{ log['Name'] }}</td>
+        <td>{{ log['Date'] }}</td>
+        <td>{{ log['Time In'] }}</td>
+        <td>{{ log['Time Out'] }}</td>
+        <td>{{ log['Total Hours'] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

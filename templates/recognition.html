@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nhận diện khuôn mặt</title>
+  </head>
+  <body>
+    <h1>Nhận diện khuôn mặt</h1>
+    <form method="POST" action="/recognize">
+      <button type="submit">Bắt đầu nhận diện</button>
+    </form>
+    <div id="result"></div>
+    <script>
+      // Xử lý hiển thị kết quả sau khi nhận diện
+      const form = document.querySelector("form");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        try {
+          const response = await fetch("/recognize", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json", // Đảm bảo rằng content type là JSON
+            },
+          });
+          const data = await response.json();
+          const resultDiv = document.getElementById("result");
+          if (data.recognized_id) {
+            resultDiv.textContent = `Nhận diện thành công: ID = ${data.recognized_id}`;
+          } else if (data.error) {
+            resultDiv.textContent = `Lỗi: ${data.details}`;
+          }
+        } catch (error) {
+          console.error(error);
+          const resultDiv = document.getElementById("result");
+          resultDiv.textContent = "Lỗi không mong muốn xảy ra.";
+        }
+      });
+    </script>
+  </body>
+</html>
