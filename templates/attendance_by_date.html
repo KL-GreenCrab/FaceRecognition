@@ -3,24 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Log chấm công</title>
+    <title>Thông tin theo ngày</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
     />
   </head>
   <body>
-    <h2>Log chấm công</h2>
+    <h2>Thông tin nhân viên làm việc trong ngày</h2>
 
-    <!-- Thêm liên kết tới trang truy xuất theo ngày -->
-    <div class="button-container">
-      <a href="/attendance_by_date">Truy xuất thông tin theo ngày</a>
-    </div>
+    <!-- Form để người dùng nhập ngày -->
+    <form method="POST" action="/attendance_by_date">
+      <label for="date">Chọn ngày:</label>
+      <input type="date" id="date" name="date" required />
+      <button type="submit">Xem</button>
+    </form>
 
-    <div class="button-container">
-      <a href="/">Trở về trang chủ</a>
-    </div>
-
+    {% if message %}
+    <p>{{ message }}</p>
+    {% else %} {% if logs %}
+    <h3>Danh sách nhân viên làm việc ngày {{ date }}:</h3>
     <table>
       <caption>
         Danh sách log chấm công
@@ -54,5 +56,6 @@
       </tr>
       {% endfor %}
     </table>
+    {% endif %} {% endif %}
   </body>
 </html>

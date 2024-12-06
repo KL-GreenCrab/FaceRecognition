@@ -64,6 +64,25 @@ def employee_detail(face_id):
     )
 
 
+@app.route('/attendance_by_date', methods=['GET', 'POST'])
+def attendance_by_date():
+    if request.method == 'POST':
+        date = request.form['date']  # Lấy ngày người dùng nhập
+        client = MongoClient("mongodb://localhost:27017/")
+        db = client['attendance_system']
+
+        # Lấy danh sách nhân viên làm việc trong ngày đó từ `attendance_log`
+        logs = list(db['attendance_log'].find({"Date": date}))
+
+        # Nếu không có ai làm việc trong ngày đó
+        if not logs:
+            return render_template('attendance_by_date.html', message="Không có người làm trong ngày này.", date=date)
+
+        return render_template('attendance_by_date.html', logs=logs, date=date)
+
+    return render_template('attendance_by_date.html')
+
+
 @app.route('/logs')
 def logs():
     client = MongoClient("mongodb://localhost:27017/")
