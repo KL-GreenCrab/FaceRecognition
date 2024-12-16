@@ -43,7 +43,7 @@ def get_face_embedding(model, img):
 def update_attendance(face_id):
     face_id = str(face_id + 1)
     print(face_id)
-    user = users_collection.find_one({"_id": face_id})
+    user = users_collection.find_one({"ID": face_id})
     if user:
         name = user["name"]
         current_time = datetime.now()

@@ -1,8 +1,8 @@
-Flask
-pymongo
-opencv-python
-facenet-pytorch
-joblib
-pillow
-scikit-learn
-torchvision
+    Flask
+    pymongo
+    opencv-python
+    facenet-pytorch
+    joblib
+    pillow
+    scikit-learn
+    torchvision

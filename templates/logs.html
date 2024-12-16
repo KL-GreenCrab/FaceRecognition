@@ -4,55 +4,91 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Log chấm công</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    />
+    <!-- Custom CSS (nếu cần) -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
     />
+
+    <style>
+      .table-custom {
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.8
+        ); /* Trắng với độ trong suốt */
+        border-radius: 10px; /* Góc bo tròn */
+        overflow: hidden; /* Bỏ phần thừa */
+      }
+
+      .table-custom td {
+        color: #000; /* Đảm bảo chữ hiển thị rõ ràng */
+        text-align: center;
+      }
+
+      .table-custom th {
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
-    <h2>Log chấm công</h2>
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">Log Chấm Công</h2>
 
-    <!-- Thêm liên kết tới trang truy xuất theo ngày -->
-    <div class="button-container">
-      <a href="/attendance_by_date">Truy xuất thông tin theo ngày</a>
+      <!-- Các nút điều hướng -->
+      <div class="d-flex justify-content-between mb-4">
+        <a href="/attendance_by_date" class="btn btn-outline-light">
+          <i class="fas fa-calendar-alt"></i> Truy xuất thông tin theo ngày
+        </a>
+        <a href="/" class="btn btn-outline-secondary">
+          <i class="fas fa-home"></i> Trang chủ
+        </a>
+      </div>
+
+      <!-- Bảng log -->
+      <table class="table table-bordered table-striped shadow-sm table-custom">
+        <thead class="table-dark">
+          <tr>
+            <th>STT</th>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Ngày</th>
+            <th>Giờ vào</th>
+            <th>Giờ ra</th>
+            <th>Tổng giờ</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for log in logs %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>
+              <a
+                href="{{ url_for('employee_detail', face_id=log['ID']) }}"
+                class="text-decoration-none text-dark"
+                style="font-weight: normal"
+              >
+                {{ log['ID'] }}
+              </a>
+            </td>
+            <td>{{ log['Name'] }}</td>
+            <td>{{ log['Date'] }}</td>
+            <td>{{ log['Time In'] }}</td>
+            <td>{{ log['Time Out'] }}</td>
+            <td>{{ log['Total Hours'] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
 
-    <div class="button-container">
-      <a href="/">Trở về trang chủ</a>
-    </div>
-
-    <table>
-      <caption>
-        Danh sách log chấm công
-      </caption>
-      <tr>
-        <th>STT</th>
-        <th>ID</th>
-        <th>Tên</th>
-        <th>Ngày</th>
-        <th>Giờ vào</th>
-        <th>Giờ ra</th>
-        <th>Tổng giờ</th>
-      </tr>
-      {% for log in logs %}
-      <tr>
-        <!-- Hàng có liên kết đến trang chi tiết -->
-        <td>{{ loop.index }}</td>
-        <td>
-          <a
-            href="{{ url_for('employee_detail', face_id=log['ID']) }}"
-            style="background: none; color: black; font-weight: normal"
-          >
-            {{ log['ID'] }}
-          </a>
-        </td>
-        <td>{{ log['Name'] }}</td>
-        <td>{{ log['Date'] }}</td>
-        <td>{{ log['Time In'] }}</td>
-        <td>{{ log['Time Out'] }}</td>
-        <td>{{ log['Total Hours'] }}</td>
-      </tr>
-      {% endfor %}
-    </table>
+    <!-- Bootstrap JS (Optional for further components like tooltips, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

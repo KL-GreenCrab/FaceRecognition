@@ -4,18 +4,80 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nhận diện khuôn mặt</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    />
+    <!-- FontAwesome for icon usage -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <style>
+      body {
+        background: url("https://cmcts.com.vn/media/cache/data/products/Facial-Recognition-cr-1200x630.jpg")
+          no-repeat center center fixed;
+        background-size: cover;
+        font-family: "Roboto", sans-serif;
+        color: white;
+      }
+      .container {
+        max-width: 600px;
+        margin-top: 100px;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 30px;
+        border-radius: 10px;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      button {
+        font-size: 18px;
+        width: 100%;
+        margin-bottom: 10px; /* Thêm khoảng cách giữa các nút */
+      }
+      #result {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 20px;
+      }
+      .alert {
+        font-size: 18px;
+        text-align: center;
+        margin-top: 20px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Nhận diện khuôn mặt</h1>
-    <form method="POST" action="/recognize">
-      <button type="submit">Bắt đầu nhận diện</button>
-    </form>
-    <div id="result"></div>
+    <div class="container">
+      <h1><i class="fas fa-camera"></i> Nhận diện khuôn mặt</h1>
+      <form method="POST" action="/recognize">
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-play"></i> Bắt đầu nhận diện
+        </button>
+      </form>
+      <!-- Nút trở về trang chủ -->
+      <form method="GET" action="/">
+        <button type="submit" class="btn btn-secondary">
+          <i class="fas fa-home"></i> Trở về trang chủ
+        </button>
+      </form>
+      <div id="result"></div>
+    </div>
+
+    <!-- Bootstrap JS (Optional for further components like tooltips, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
       // Xử lý hiển thị kết quả sau khi nhận diện
       const form = document.querySelector("form");
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        const resultDiv = document.getElementById("result");
+        resultDiv.textContent = ""; // Reset previous result
         try {
           const response = await fetch("/recognize", {
             method: "POST",
@@ -24,16 +86,14 @@
             },
           });
           const data = await response.json();
-          const resultDiv = document.getElementById("result");
           if (data.recognized_id) {
-            resultDiv.textContent = `Nhận diện thành công: ID = ${data.recognized_id}`;
+            resultDiv.innerHTML = `<div class="alert alert-success">Nhận diện thành công: ID = ${data.recognized_id}</div>`;
           } else if (data.error) {
-            resultDiv.textContent = `Lỗi: ${data.details}`;
+            resultDiv.innerHTML = `<div class="alert alert-danger">Lỗi: ${data.details}</div>`;
           }
         } catch (error) {
           console.error(error);
-          const resultDiv = document.getElementById("result");
-          resultDiv.textContent = "Lỗi không mong muốn xảy ra.";
+          resultDiv.innerHTML = `<div class="alert alert-danger">Lỗi không mong muốn xảy ra.</div>`;
         }
       });
     </script>
