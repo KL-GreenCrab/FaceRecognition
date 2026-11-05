@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thông tin mẫu</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <h2>Thông tin mẫu</h2>
+    <div class="employee-info">
+      <p><strong>ID mẫu:</strong> {{ face_id }}</p>
+      <p><strong>Ghi chú:</strong> Dữ liệu demo đã được làm sạch, không lưu thông tin cá nhân của người thật.</p>
+    </div>
+
+    <h3>Lịch sử chấm công</h3>
+    <table>
+      <tr>
+        <th>Ngày</th>
+        <th>Giờ vào</th>
+        <th>Giờ ra</th>
+        <th>Số giờ làm</th>
+      </tr>
+      {% for log in attendance_logs %}
+      <tr>
+        <td>{{ log["Date"] }}</td>
+        <td>{{ log["Time In"] }}</td>
+        <td>{{ log["Time Out"] }}</td>
+        <td>{{ log["Total Hours"] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h3>Tổng số giờ làm: {{ total_hours }} giờ</h3>
+
+    <div class="button-container">
+      <a href="/">Trở về trang chủ</a>
+    </div>
+  </body>
+</html>

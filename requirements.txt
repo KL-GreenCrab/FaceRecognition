@@ -1,0 +1,9 @@
+Flask
+pymongo
+opencv-python
+mtcnn
+facenet-pytorch
+joblib
+pillow
+scikit-learn
+torchvision
